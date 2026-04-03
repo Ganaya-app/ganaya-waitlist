@@ -278,7 +278,7 @@ export default function GanayaWaitlist() {
                 return (
                   <div key={opt.v} className={`option-card${sel?" selected":""}`}
                     style={{ animation:`fadeUp 0.3s ease ${0.04*i}s both`, gridColumn:QUESTIONS[step].opts.length<=4?"1 / -1":undefined }}
-                    onClick={() => { selectOption(QUESTIONS[step].id,opt.v,QUESTIONS[step].type); if(QUESTIONS[step].type==="single") setTimeout(()=>nextStep(),320); }}>
+                    onClick={() => { selectOption(QUESTIONS[step].id,opt.v,QUESTIONS[step].type); if(QUESTIONS[step].type==="single") setTimeout(()=>navigate("forward"),320); }}>
                     <div style={{ fontSize:QUESTIONS[step].opts.length<=4?26:22,width:44,height:44,borderRadius:13,background:sel?"rgba(0,230,118,0.14)":"rgba(255,255,255,0.04)",display:"flex",alignItems:"center",justifyContent:"center",flexShrink:0,transition:"background 0.2s" }}>{opt.e}</div>
                     <div style={{ flex:1,minWidth:0 }}>
                       <div style={{ fontSize:15,fontWeight:700,color:sel?"#00e676":"#f0f0f0",transition:"color 0.2s" }}>{opt.l}</div>
