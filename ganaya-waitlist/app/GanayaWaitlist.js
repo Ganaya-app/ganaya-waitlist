@@ -68,7 +68,7 @@ export default function GanayaWaitlist() {
   const [phone, setPhone] = useState("");
   const [refCode, setRefCode] = useState("");
   const [position, setPosition] = useState(null);
-  const [totalSignups, setTotalSignups] = useState(847);
+  const [totalSignups, setTotalSignups] = useState(0);
   const [referredBy, setReferredBy] = useState("");
   const [copied, setCopied] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -253,17 +253,8 @@ export default function GanayaWaitlist() {
           <div style={{ marginTop:28,display:"flex",gap:10,flexWrap:"wrap",justifyContent:"center" }}>
             {["🛍️ MercadoLibre","🛵 Rappi","📱 Recarga celular","🎵 Spotify","💰 MercadoPago"].map((r,i) => <span key={i} className="chip">{r}</span>)}
           </div>
-          <div style={{ marginTop:40,display:"flex",alignItems:"center",gap:10 }}>
-            <div style={{ display:"flex" }}>
-              {["#e91e8c","#00bcd4","#ff9800","#9c27b0","#4caf50"].map((c,i) => (
-                <div key={i} style={{ width:28,height:28,borderRadius:"50%",background:c,border:"2px solid #060b14",marginLeft:i>0?-10:0,display:"flex",alignItems:"center",justifyContent:"center",fontSize:11,fontWeight:700,color:"#fff" }}>
-                  {["S","M","L","R","A"][i]}
-                </div>
-              ))}
-            </div>
-            <p style={{ fontSize:14,color:"rgba(255,255,255,0.35)" }}>
-              <span className="mono" style={{ color:"#00e676",fontWeight:700 }}>{totalSignups.toLocaleString()}</span> personas ya se sumaron
-            </p>
+          <div style={{ marginTop:40 }}>
+            <div className="pill" style={{ fontSize:13,padding:"8px 18px" }}>🚀 Lanzamos pronto — Anotate para beneficios anticipados</div>
           </div>
           <div style={{ marginTop:24,display:"flex",gap:20,justifyContent:"center",fontSize:12,color:"rgba(255,255,255,0.18)",flexWrap:"wrap" }}>
             <span>✓ 100% gratis</span><span>·</span><span>✓ Sin spam</span><span>·</span><span>✓ Hecho en Argentina</span>
@@ -316,7 +307,7 @@ export default function GanayaWaitlist() {
               <div style={{ textAlign:"center",marginBottom:28 }}>
                 <div style={{ width:60,height:60,borderRadius:18,background:"linear-gradient(135deg,rgba(0,230,118,0.15),rgba(0,200,83,0.08))",border:"1px solid rgba(0,230,118,0.2)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:28,margin:"0 auto 16px" }}>🚀</div>
                 <h2 style={{ fontSize:24,fontWeight:800,letterSpacing:-0.6,marginBottom:6 }}>¡Último paso!</h2>
-                <p style={{ fontSize:14,color:"rgba(255,255,255,0.38)" }}>Reservá tu lugar en la lista de espera</p>
+                <p style={{ fontSize:14,color:"rgba(255,255,255,0.38)" }}>Reservá tu acceso anticipado</p>
               </div>
               <div style={{ display:"flex",flexDirection:"column",gap:14,marginBottom:20 }}>
                 <div>
@@ -347,11 +338,7 @@ export default function GanayaWaitlist() {
               <div style={{ textAlign:"center",marginBottom:24 }}>
                 <div style={{ width:72,height:72,borderRadius:"50%",background:"rgba(0,230,118,0.1)",border:"1.5px solid rgba(0,230,118,0.25)",display:"flex",alignItems:"center",justifyContent:"center",fontSize:30,margin:"0 auto 16px",animation:"pulseGlow 2.5s ease infinite" }}>✅</div>
                 <h2 style={{ fontSize:27,fontWeight:900,letterSpacing:-0.7,marginBottom:5 }}>¡Estás adentro!</h2>
-                <p style={{ fontSize:15,color:"rgba(255,255,255,0.4)" }}>Sos el <span className="mono" style={{ color:"#00e676",fontWeight:800 }}>#{position}</span> en la lista de espera</p>
-              </div>
-              <div style={{ display:"grid",gridTemplateColumns:"1fr 1fr",gap:10,marginBottom:22 }}>
-                <div className="stat-box"><div className="mono" style={{ fontSize:28,fontWeight:800,color:"#00e676" }}>#{position}</div><div style={{ fontSize:11,color:"rgba(255,255,255,0.3)",marginTop:3,fontWeight:600 }}>Tu posición</div></div>
-                <div className="stat-box"><div className="mono" style={{ fontSize:28,fontWeight:800,color:"#00e676" }}>0</div><div style={{ fontSize:11,color:"rgba(255,255,255,0.3)",marginTop:3,fontWeight:600 }}>Amigos invitados</div></div>
+                <p style={{ fontSize:15,color:"rgba(255,255,255,0.4)" }}>Te anotaste con éxito. Te vamos a avisar apenas lancemos.</p>
               </div>
               <div className="ref-box" style={{ marginBottom:20 }}>
                 <div>
