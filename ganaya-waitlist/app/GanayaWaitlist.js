@@ -12,7 +12,7 @@ const track = (event, props = {}) => {
   }
 };
 
-const saveSignup = async ({ email, phone, answers, referredBy, referralCode }) => {
+const saveSignup = async ({ email, phone, answers, referredBy, referralCode, utms }) => {
   const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist`, {
     method: "POST",
     headers: {
@@ -27,6 +27,10 @@ const saveSignup = async ({ email, phone, answers, referredBy, referralCode }) =
       answers,
       referred_by: referredBy || null,
       referral_code: referralCode,
+      utm_source: utms?.utm_source || null,
+      utm_medium: utms?.utm_medium || null,
+      utm_campaign: utms?.utm_campaign || null,
+      utm_content: utms?.utm_content || null,
     }),
   });
   if (!res.ok) {
@@ -77,8 +81,22 @@ export default function GanayaWaitlist() {
   const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
-    const ref = new URLSearchParams(window.location.search).get("ref");
+    const params = new URLSearchParams(window.location.search);
+    const ref = params.get("ref");
     if (ref) setReferredBy(ref);
+
+    // Capturar UTMs de ads y guardar en sessionStorage (sobrevive a recargas)
+    const utmKeys = ["utm_source", "utm_medium", "utm_campaign", "utm_content"];
+    const utms = {};
+    let hasUtm = false;
+    utmKeys.forEach(k => {
+      const v = params.get(k);
+      if (v) { utms[k] = v; hasUtm = true; }
+    });
+    if (hasUtm) {
+      try { sessionStorage.setItem("ganaya_utm", JSON.stringify(utms)); } catch (e) {}
+    }
+
     getCount().then(n => { if (n > 0) setTotalSignups(n); }).catch(() => {});
 
     // Meta Pixel
@@ -137,14 +155,26 @@ export default function GanayaWaitlist() {
     setLoading(true);
     setError("");
     const code = genCode();
+
+    // Leer UTMs de sessionStorage (capturados al primer render)
+    let utms = null;
     try {
-      await saveSignup({ email, phone, answers, referredBy, referralCode: code });
+      const stored = sessionStorage.getItem("ganaya_utm");
+      if (stored) utms = JSON.parse(stored);
+    } catch (e) {}
+
+    try {
+      await saveSignup({ email, phone, answers, referredBy, referralCode: code, utms });
       const count = await getCount();
       setTotalSignups(count);
       setPosition(count);
       setRefCode(code);
+
+      // Limpiar UTMs del sessionStorage después del signup exitoso
+      try { sessionStorage.removeItem("ganaya_utm"); } catch (e) {}
+
       setScreen("done");
-      track("waitlist_completed");
+      track("waitlist_completed", { ...(utms || {}) });
     } catch (err) {
       if (err.message?.includes("duplicate") || err.message?.includes("unique")) {
         setError("Este email ya está registrado. ¡Ya estás en la lista! 🎉");
