@@ -1,0 +1,45 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body {
+    background-color: #060b14;
+    color: #ffffff;
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply min-h-touch rounded-md bg-accent px-md font-semibold text-bg-base transition-colors hover:bg-accent-hover disabled:opacity-50;
+  }
+
+  .btn-secondary {
+    @apply min-h-touch rounded-md border border-accent bg-transparent px-md font-semibold text-accent transition-colors hover:bg-accent/10 disabled:opacity-50;
+  }
+
+  .btn-ghost {
+    @apply min-h-touch rounded-md bg-transparent px-md font-medium text-text-primary transition-colors hover:bg-bg-elev-2 disabled:opacity-50;
+  }
+
+  .input-base {
+    @apply min-h-touch w-full rounded-md bg-bg-elev-2 px-md text-body text-text-primary placeholder:text-text-tertiary focus:outline-none focus:ring-1 focus:ring-accent;
+  }
+
+  .card {
+    @apply rounded-lg bg-bg-elev-1 p-md;
+  }
+
+  .pill {
+    @apply inline-flex items-center rounded-pill px-sm py-xs text-micro;
+  }
+}

@@ -1,11 +1,22 @@
-export const metadata = {
+import type { Metadata } from 'next'
+import { Montserrat } from 'next/font/google'
+import './globals.css'
+
+const montserrat = Montserrat({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-montserrat',
+})
+
+export const metadata: Metadata = {
   title: 'GanáYa — Completá misiones. Ganá premios.',
-  description: 'Respondé encuestas, probá apps y servicios desde tu celu. Canjeá por gift cards de MercadoLibre, Rappi y más.',
+  description:
+    'Respondé encuestas, probá apps y servicios desde tu celu. Canjeá por gift cards de MercadoLibre, Rappi y más.',
 }
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="es">
+    <html lang="es" className={montserrat.variable}>
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -22,7 +33,7 @@ export default function RootLayout({ children }) {
           }}
         />
       </head>
-      <body>{children}</body>
+      <body className="font-sans">{children}</body>
     </html>
   )
 }
