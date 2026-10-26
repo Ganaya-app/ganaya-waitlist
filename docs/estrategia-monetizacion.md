@@ -1,6 +1,6 @@
 # GanáYa — Estrategia de monetización y estado del proyecto
 
-Última actualización: 25/10/2026
+Última actualización: 26/10/2026
 
 ## 1. Qué hay hoy en el repo
 
@@ -63,12 +63,46 @@ Riesgos:
 - Reputación: proliferan landings clon con promesas infladas ("USD 74 diarios") ([ejemplo](https://mygravypass.com/)) y quejas en BBB por recompensas impagas ([BBB](https://www.bbb.org/us/ca/san-francisco/profile/mobile-gaming/gravy-pass-1116-978985/complaints?page=1)).
 - Reversiones: si acreditás antes de la confirmación del offerwall, cada reversión la pagás vos ([RevBoost](https://www.revboost.com/best/offerwall-networks-for-rewards-sites)). Usar saldo pendiente y un mínimo de retiro.
 
-## 5. Próximos pasos propuestos
+## 5. Estrategia: ¿publicidad pre-lanzamiento y pitch a marcas?
 
-1. Cerrar RLS de Supabase y agregar términos + política de privacidad.
-2. Pasar de waitlist a MVP web logueado (Supabase Auth con magic link o WhatsApp OTP) con: saldo pendiente/disponible, ledger de transacciones y endpoint de postback S2S con validación de firma y whitelist de IPs.
-3. Integrar 2 o 3 walls web de alta rápida (Offerwall.gg + CPX/BitLabs + Torox) y comparar eCPM/ARPU por usuario argentino.
-4. Emitir el pase de Google Wallet primero (Android domina en AR), después Apple.
-5. Canje inicial: gift cards de MercadoLibre/Rappi o transferencia a MercadoPago con mínimo y KYC liviano.
-6. Rehacer referidos en el backend (unicidad, conteo, recompensa condicionada a que el invitado complete la primera misión).
-7. Con 30–60 días de datos, aplicar a Adjoe y negociar CPA directos con fintechs.
+No conviene invertir fuerte en llenar la waitlist. Las marcas pagan por acciones (cuenta abierta, primer pago), no por emails, y una waitlist pierde valor si pasan meses sin producto. La secuencia recomendada:
+
+1. MVP con offerwalls de alta rápida, para tener ingreso desde el día uno.
+2. Prueba chica de Meta Ads (USD 300–500) para medir costo por registro y por usuario activado.
+3. Pitch a marcas con datos de activación y retención, no con una lista.
+
+Referencias de costo en Argentina: algunas guías citan USD 0,20–0,45 por lead con formulario nativo de Meta ([Marketing Digital Mendoza](https://marketingdigitalmendoza.com/blog/meta-ads-mendoza-guia-completa)) y otras USD 3–18 según rubro ([Dario Interweb](https://dariointerweb.com.ar/marketing-para-pymes/)). Con mensajes de "ganá premios" la métrica que importa es el costo por usuario que completa una misión.
+
+### A qué offerwalls aplicar ahora
+
+| Red | Por qué | Fuente |
+|--|--|--|
+| CPX Research | Líder en encuestas en español para Argentina; alta gratis, NET30, mínimo USD 25 | [Shark Earnings](https://sharkearnings.com/academy/insider/best-offers-by-region-guide), [CPX](https://www.cpx-research.com/main/en/) |
+| BitLabs | Encuestas, complemento de CPX | [Cusenware](https://cusenware.com/blog/best-offerwall-providers-2025/) |
+| Offerwall.gg | Sin tráfico mínimo, activo en el día | [Offerwall.gg](https://offerwall.gg/) |
+| TimeWall | Tareas cortas, estable en LATAM | [Shark Earnings](https://sharkearnings.com/academy/insider/best-offers-by-region-guide) |
+
+### Por qué fintechs primero (y no SMBs)
+
+Las fintechs ya pagan caro por usuario: Mercado Pago da \$10.000 por referido que hace su primer pago ([iProUP](https://www.iproup.com/economia-digital/63517-mercado-pago-sistema-de-referidos-como-ganar-1-millon-de-pesos-en-2026)) y Lemon USD 3 a cada uno cuando el invitado valida y compra USD 6 en acciones ([Lemon](https://help.lemon.me/es/articles/11420040-en-que-consiste-el-programa-de-referidos)). Un CPA directo debería valer más. Ojo: usar links personales de referidos como negocio probablemente viola sus términos; hay que negociar acuerdo directo o vía red de afiliados.
+
+| | Fintechs / telcos | SMBs |
+|--|--|--|
+| Valor por usuario | Alto (LTV de años) | Bajo |
+| Hábito de pagar por acción | Sí, con equipos de UA | Poco |
+| Medición | MMP (AppsFlyer, Adjust) | Difícil si la conversión es offline |
+| Costo de venta | Similar por cuenta, mucho más ingreso | Alto relativo al ticket |
+| Producto necesario | Postback del MMP | Panel autoservicio completo |
+
+SMBs para más adelante: pymes digitales (ecommerce, apps chicas), vía agregadores (Tiendanube, Rappi, PedidosYa, redes de afiliados), misiones locales con QR si hay densidad de usuarios, y un panel autoservicio con CPA fijo.
+
+## 6. Plan de ejecución
+
+El MVP web ya está armado en el repo privado [`wliu-dev/ganaya-web`](https://github.com/wliu-dev/ganaya-web) (Next.js + Supabase + Vercel): login con magic link, ledger de puntos con créditos pendientes, CPX Research con postback firmado, canjes con panel admin y pase de Google Wallet. Detalle día por día en `docs/plan-semana.md` de ese repo.
+
+| Semanas | Qué hacer |
+|--|--|
+| 1 | Cerrar RLS de la waitlist, términos y privacidad, MVP en producción con CPX, primeros usuarios desde la waitlist |
+| 2 | Offerwall.gg y TimeWall, Google Wallet con saldo actualizado, emails de reactivación |
+| 3–4 | Prueba de USD 300–500 en Meta; medir registro → primera misión → retención D7/D30 y ARPU |
+| 5–10 | Con 1.000–2.000 usuarios activos: pitch a Ualá, Lemon, Brubank, Personal, Claro y Mercado Pago; misiones directas con postback del MMP; aplicar a adjoe; Apple Wallet |
