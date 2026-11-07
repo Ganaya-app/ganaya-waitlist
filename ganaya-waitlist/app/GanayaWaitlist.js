@@ -41,10 +41,14 @@ const saveSignup = async ({ email, phone, answers, referredBy, referralCode, utm
 };
 
 const getCount = async () => {
-  const res = await fetch(`${SUPABASE_URL}/rest/v1/waitlist?select=id`, {
-    headers: { "apikey": SUPABASE_KEY, "Authorization": `Bearer ${SUPABASE_KEY}`, "Prefer": "count=exact" },
+  // Conteo via RPC security definer: anon ya no puede leer filas de waitlist.
+  const res = await fetch(, {
+    method: "POST",
+    headers: { "Content-Type": "application/json", "apikey": SUPABASE_KEY, "Authorization":  },
+    body: "{}",
   });
-  return parseInt(res.headers.get("content-range")?.split("/")[1] || "0", 10);
+  if (!res.ok) return 0;
+  return parseInt(await res.text(), 10) || 0;
 };
 
 const QUESTIONS = [
